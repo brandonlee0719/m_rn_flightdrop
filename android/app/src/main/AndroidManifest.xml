@@ -1,0 +1,107 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     package="com.flightdrop"
+     xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>         <!-- for Device Name -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- Approximate location - If you want to use promptLocation for letting OneSignal know the user location. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!--  Precise location If you want to use promptLocation for letting OneSignal know the user location. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+
+    <application
+      android:name=".MainApplication"
+      android:label="@string/app_name"
+      android:icon="@mipmap/ic_launcher"
+      android:allowBackup="false"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:theme="@style/AppTheme">
+      <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+      <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:launchMode="singleTop"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="adjustResize"
+        >
+        <intent-filter>
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:scheme="flightdrop" android:host="flightdrop" />
+        </intent-filter>
+        <!-- HTTP -->
+        <intent-filter android:label="@string/app_name">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="http"
+                  android:host="flightdrop.co"
+                  android:pathPrefix=""
+                />
+        <!-- DEEPLINK WITH FLIGHTDROP LINKS -->
+            <data android:scheme="flightdrop"
+                  android:host="flightdrop"
+                  android:pathPrefix=""
+                />
+        </intent-filter>
+        <!-- MAIN LAUCHER -->
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        <!-- Branch URI Scheme -->
+        <intent-filter>
+          <data android:scheme="branchandroid" />
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+
+        <!-- Branch App Links (optional) -->
+        <intent-filter android:autoVerify="true">
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:scheme="https" android:host="uobg.app.link" />
+        </intent-filter>
+      </activity>
+
+      <!-- Branch init -->
+      <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_gdzsepIaUf7wG3dEWb3aBkmcutm0PwJa" />
+      <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_edwDakKcMeWzJ3hC3aZs9kniyuaWGCTa" />
+      <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
+      <!-- Branch install referrer tracking (optional) -->
+      <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+        <intent-filter>
+            <action android:name="com.android.vending.INSTALL_REFERRER" />
+        </intent-filter>
+      </receiver>
+
+      <service
+        android:name="com.robinpowered.react.Intercom.IntercomIntentService"
+        android:exported="false">
+      <intent-filter
+          android:priority="999">
+        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+      </intent-filter>
+      </service>
+      <receiver
+          android:name="io.intercom.android.sdk.push.IntercomPushBroadcastReceiver"
+          tools:replace="android:exported"
+          android:exported="true" >
+          <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- for Gingerbread GSF backward compat -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+            </intent-filter>
+      </receiver>
+
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+    </application>
+
+</manifest>

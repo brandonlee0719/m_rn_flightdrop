@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "Flight Drop",
+    "icon": "./logo.png",
+    "version": "1.0.0",
+    "slug": "flight-drop",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "com.emberLabs.flightDrop"
+    },
+    "android": {
+      "package": "com.emberLabs.flightDrop"
+    }
+  },
+  "name": "flightDrop",
+  "displayName": "Flight Drop"
+}

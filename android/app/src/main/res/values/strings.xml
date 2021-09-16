@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Flightdrop</string>
+    <string name="intercom_gcm_sender_id">593379139548</string>
+    <string name="facebook_app_id">735370649994309</string>
+</resources>
